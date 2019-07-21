@@ -26,12 +26,14 @@ the file.
 
 The following symbols and syntax highlight groups are used for the signs:
 
+```
   > DiffAdd:    Newly added lines. (default=blue)
 
   ! DiffChange: Lines which are changed from the original. (default=cyan)
 
   < DiffDel:    Applied to the lines directly above and below a deleted block
                 (default=magenta) 
+```
 
 # Usage
 
