@@ -12,6 +12,14 @@ blocks is also provided.
 
 ![rcdiff](rcdiff.png)
 
+# Installation
+
+Copy rcdiff.vim into your vim plugins directory, or use Plugger:
+
+```
+Plug 'zevv/rcdiff'                                                            
+```
+
 This plugin supports the following RCS systems:
 
 - CVS
