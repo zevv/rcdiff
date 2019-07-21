@@ -45,16 +45,20 @@ highlighting.
 
 The function takes one argument specifying an additional action to perform:
 
+```
   "prev"  : jump to the previous different block 
   "next"  : jump to the next different block
   "clear" : clean up all signs
+```
 
 You might want to map some keys to run the Svndiff function. For
 example, add to your .vimrc:
 
+```
   noremap <F3> :call Svndiff("prev")<CR> 
   noremap <F4> :call Svndiff("next")<CR>
   noremap <F5> :call Svndiff("clear")<CR>
+```
 
 
 # Configuration
@@ -88,6 +92,8 @@ Personally, I find the following colours more intuitive for diff colours:
 red=deleted, green=added, yellow=changed. If you want to use these colours,
 try adding the following lines to your .vimrc
 
+```
 hi DiffAdd      ctermfg=0 ctermbg=2 guibg='green'
 hi DiffDelete   ctermfg=0 ctermbg=1 guibg='red'
 hi DiffChange   ctermfg=0 ctermbg=3 guibg='yellow'
+```
