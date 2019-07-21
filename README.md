@@ -10,7 +10,9 @@ original text is not shown, only signs are used to indicate where changes were
 made. With proper key bindings configured, fast navigation between changed
 blocks is also provided.
 
-Despite the name 'svndiff' this plugin supports the following RCS systems:
+![rcdiff](rcdiff.png)
+
+This plugin supports the following RCS systems:
 
 - CVS
 - Fossil
@@ -19,7 +21,7 @@ Despite the name 'svndiff' this plugin supports the following RCS systems:
 - Perforce / p4
 - Subversion
 
-The type of RCS will be detected when first issuing a svndiff command on 
+The type of RCS will be detected when first issuing a rcdiff command on 
 the file.
 
 The following symbols and syntax highlight groups are used for the signs:
@@ -57,9 +59,9 @@ example, add to your .vimrc:
 
 The following configuration variables are availabe:
 
-* g:svndiff_autoupdate
+* g:rcdiff_autoupdate
 
-  If this variable is defined, svndiff will automatically update the signs
+  If this variable is defined, rcdiff will automatically update the signs
   when the user stops typing for a short while, and when leaving insert
   mode. This might slow things down on large files, so use with caution.
   The vim variable 'updatetime' can be used to set the auto-update interval,
@@ -67,16 +69,16 @@ The following configuration variables are availabe:
   vim docs for more info) 
   To use, add to your .vimrc:
 
-  let g:svndiff_autoupdate = 1
+  let g:rcdiff_autoupdate = 1
 
-* g:svndiff_one_sign_delete
+* g:rcdiff_one_sign_delete
 
   Normally, two 'delete' signs are placed around the location where
   text was deleted. When this variable is defined, only one sign is
   placed, above the location of the deleted text.
   To use, add to your .vimrc:
 
-  let g:svndiff_one_sign_delete = 1
+  let g:rcdiff_one_sign_delete = 1
 
 # Colors
 

@@ -1,5 +1,5 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" svndiff (C) 2007 Ico Doornekamp
+" rcdiff (C) 2007 Ico Doornekamp
 "
 " This program is free software; you can redistribute it and/or modify it
 " under the terms of the GNU General Public License as published by the Free
@@ -24,7 +24,7 @@
 " made. With proper key bindings configured, fast navigation between changed
 " blocks is also provided.
 "
-" Despite the name 'svndiff' this plugin supports the following RCS systems:
+" Despite the name 'rcdiff' this plugin supports the following RCS systems:
 "
 " - CVS
 " - Fossil
@@ -33,7 +33,7 @@
 " - Perforce / p4
 " - Subversion
 "
-" The type of RCS will be detected when first issuing a svndiff command on 
+" The type of RCS will be detected when first issuing a rcdiff command on 
 " the file.
 "
 " The following symbols and syntax highlight groups are used for the signs:
@@ -73,9 +73,9 @@
 "
 " The following configuration variables are availabe:
 " 
-" * g:svndiff_autoupdate
+" * g:rcdiff_autoupdate
 "
-"   If this variable is defined, svndiff will automatically update the signs
+"   If this variable is defined, rcdiff will automatically update the signs
 "   when the user stops typing for a short while, and when leaving insert
 "   mode. This might slow things down on large files, so use with caution.
 "   The vim variable 'updatetime' can be used to set the auto-update interval,
@@ -83,16 +83,16 @@
 "   vim docs for more info) 
 "   To use, add to your .vimrc:
 "
-"   let g:svndiff_autoupdate = 1
+"   let g:rcdiff_autoupdate = 1
 "
-" * g:svndiff_one_sign_delete
+" * g:rcdiff_one_sign_delete
 "
 "   Normally, two 'delete' signs are placed around the location where
 "   text was deleted. When this variable is defined, only one sign is
 "   placed, above the location of the deleted text.
 "   To use, add to your .vimrc:
 "
-"   let g:svndiff_one_sign_delete = 1
+"   let g:rcdiff_one_sign_delete = 1
 "
 " Colors
 " ------
@@ -143,7 +143,7 @@
 "
 " 4.4 2011-03-30  Added support for perforce/p4 (thanks, Timandahaf)
 "
-" 4.5 2011-10-09  Bugfix when trying to use svndiff in a new fileless buffer
+" 4.5 2011-10-09  Bugfix when trying to use rcdiff in a new fileless buffer
 "                 (Frankovskyi Bogdan)
 "
 " 4.6 2012-06-02  Added support for the Fossil SCM (Andrea Federico 
@@ -160,7 +160,7 @@ endif
 " Globals for this plugin
 
 let s:sign_base = 200000  " Base for our sign id's, hoping to avoid colisions
-let s:is_active = {}      " dictionary with buffer names that have svndiff active
+let s:is_active = {}      " dictionary with buffer names that have rcdiff active
 let s:rcs_type = {}       " RCS type, will be autodetected to one of svn/git/hg/cvs/p4
 let s:rcs_cmd = {}        " Shell command to execute to get contents of clean file from RCS
 let s:diff_signs = {}     " dict with list of ids of all signs, per file
@@ -289,20 +289,20 @@ function s:Svndiff_update(...)
 			if old_count == 0
 				let from  = new_from
 				let to    = new_from + new_count - 1
-				let name  = 'svndiff_add'
+				let name  = 'rcdiff_add'
 				let info  = new_count . " lines added"
 			elseif new_count == 0
 				let from  = new_from
 				let to    = new_from 
-				let name  = 'svndiff_delete'
+				let name  = 'rcdiff_delete'
 				let info  = old_count . " lines deleted"
-				if ! exists("g:svndiff_one_sign_delete")
+				if ! exists("g:rcdiff_one_sign_delete")
 					let to += 1
 				endif
 			else
 				let from  = new_from
 				let to    = new_from + new_count - 1
-				let name  = 'svndiff_change'
+				let name  = 'rcdiff_change'
 				let info  = new_count . " lines changed"
 			endif
 
@@ -353,11 +353,11 @@ function s:Svndiff_prev(...)
 		let line = block.id - s:sign_base
 		if line < line(".") 
 			call setpos(".", [ 0, line, 1, 0 ])
-			echom 'svndiff: ' . block.info
+			echom 'rcdiff: ' . block.info
 			return
 		endif
 	endfor
-	echom 'svndiff: no more diff blocks above cursor'
+	echom 'rcdiff: no more diff blocks above cursor'
 endfunction
 
 
@@ -371,11 +371,11 @@ function s:Svndiff_next(...)
 		let line = block.id - s:sign_base
 		if line > line(".") 
 			call setpos(".", [ 0, line, 1, 0 ])
-			echom 'svndiff: ' . block.info
+			echom 'rcdiff: ' . block.info
 			return
 		endif
 	endfor
-	echom 'svndiff: no more diff blocks below cursor'
+	echom 'rcdiff: no more diff blocks below cursor'
 endfunction
 
 
@@ -422,14 +422,14 @@ endfunction
 
 " Define sign characters and colors
 
-sign define svndiff_add    text=> texthl=diffAdd
-sign define svndiff_delete text=< texthl=diffDelete
-sign define svndiff_change text=! texthl=diffChange
+sign define rcdiff_add    text=> texthl=diffAdd
+sign define rcdiff_delete text=< texthl=diffDelete
+sign define rcdiff_change text=! texthl=diffChange
 
 
 " Define autocmds if autoupdate is enabled
 
-if exists("g:svndiff_autoupdate")
+if exists("g:rcdiff_autoupdate")
 	autocmd CursorHold,CursorHoldI * call s:Svndiff_update()
 	autocmd InsertLeave * call s:Svndiff_update()
 endif
